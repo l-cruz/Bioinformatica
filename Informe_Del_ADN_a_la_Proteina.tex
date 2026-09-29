@@ -1,0 +1,61 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,provide=*]{babel}
+\usepackage[margin=1.8cm]{geometry}
+\usepackage{amsmath,booktabs,array}
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=black]{hyperref}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlength{\tabcolsep}{5pt}
+\title{\vspace{-1.4cm}\textbf{Del ADN a la proteína}\\\normalsize Práctica de Bioinformática · Grado en Ciencia e Ingeniería de Datos · ULPGC}
+\author{Lucía Xufang Cruz Toste y Carlota Ayala Pérez}
+\date{28 de septiembre de 2026}
+
+\begin{document}
+\maketitle
+\vspace{-1cm}
+
+\section*{1. Replicación del ADN}
+Se parte de las hebras complementarias 5'-ATG CCG TTA GCT-3' y 3'-TAC GGC AAT CGA-5'. Tras una ronda de replicación semiconservativa se forman dos dúplex idénticos: la hija 1 conserva la hebra 5'--3' original y sintetiza la 3'--5'; la hija 2 conserva la 3'--5' original y sintetiza la 5'--3'. Las hebras nuevas son, respectivamente, 3'-TAC GGC AAT CGA-5' y 5'-ATG CCG TTA GCT-3'.
+
+La \textbf{helicasa} separa las hebras; la \textbf{primasa} fabrica cebadores de ARN; la \textbf{ADN polimerasa} extiende las nuevas hebras 5' $\rightarrow$ 3' y corrige algunos fallos; y la \textbf{ligasa} une fragmentos, especialmente los de Okazaki. Una equivocación no reparada puede fijarse como mutación y transmitirse a células hijas; sus consecuencias dependen de dónde ocurra. En Biopython, \texttt{Seq("ATGCCGTTAGCT").complement()} devuelve \texttt{TACGGCAATCGA}; \texttt{reverse\_complement()} devuelve \texttt{AGCTAACGGCAT} al escribir la complementaria 5'--3' \cite{alberts}.
+
+\section*{2. Transcripción del ADN a ARN}
+Para 5'-ATG CCT GAA TGC-3' / 3'-TAC GGA CTT ACG-5', la segunda es la \textbf{hebra molde}: la ARN polimerasa la lee 3' $\rightarrow$ 5' y produce el ARNm \textbf{5'-AUG CCU GAA UGC-3'}. Este coincide con la hebra codificante tras reemplazar T por U.
+
+El \textbf{promotor} regula el inicio de la transcripción; no se pueden localizar sus bases exactas a partir de estas doce bases aisladas. La \textbf{CDS} es la parte que se traduce, mientras que el ARN puede incluir regiones no traducidas. La extensión lee \texttt{ejercicio2\_real.fasta} mediante \texttt{SeqIO.read()} y obtiene \texttt{AUGCCUGAAUGC}. Si se toma la hebra opuesta como codificante, se calcula \texttt{GCAUUCAGGCAU}; es una prueba de orientación, no evidencia de que este gen se transcriba por ambos sentidos.
+
+\section*{3. Traducción del ARNm a proteína}
+El transcrito 5'-\textbf{AUG UAU GCU UAA}-3' contiene el inicio \textbf{AUG} (Met) y el codón de parada \textbf{UAA}. UAU codifica tirosina y GCU alanina: el producto es \textbf{Met--Tyr--Ala}. Biopython muestra \texttt{MYA*}; el asterisco señala parada y no corresponde a otro aminoácido.
+
+Un cambio AUG $\rightarrow$ GUG podría impedir que la traducción se inicie en esa posición en el contexto eucariota; otro AUG posterior podría actuar como inicio. La pérdida de UAA permitiría continuar hasta otro codón de parada en el mismo marco, si existe; la consecuencia concreta requiere conocer la secuencia posterior.
+
+\section*{4. \textit{Splicing} alternativo}
+Para cinco exones, dos ensamblajes hipotéticos compatibles son \textbf{1--2--4--5} y \textbf{1--3--5}. Pueden cambiar la secuencia proteica, el marco de lectura o solo regiones no traducidas; no es posible predecir una función precisa sin la secuencia completa.
+
+En \textit{FGFR2}, la selección alternativa de las regiones \textbf{IIIb} y \textbf{IIIc} cambia parte del dominio extracelular del receptor y su interacción con ligandos. Se contrastan las variantes RefSeq \texttt{NM\_022970} (IIIb) y \texttt{NM\_000141} (IIIc): el notebook recupera sus CDS, informa de las longitudes de los transcritos y proteínas y muestra los bloques de aminoácidos que difieren. También consulta en Ensembl los transcritos anotados para \textit{FGFR2}; su cantidad puede variar entre versiones y no debe confundirse con proteínas funcionales verificadas. Así, la selección regulada de exones permite diversos productos a partir de un mismo gen \cite{ncbiFGFR2,ensembl}.
+
+\section*{5. Secuencia y estructura proteica}
+En \textbf{Met--Ile--Ser--Gly--Val--Lys--His}, el extremo \textbf{N-terminal} es Met y el \textbf{C-terminal} es His. El orden de aminoácidos condiciona las interacciones que estabilizan la estructura tridimensional y, con ello, la función. Sustituir un residuo hidrofóbico enterrado por uno polar puede reducir la estabilidad, aunque el efecto depende de su posición y entorno.
+
+La GFP de la estructura \textbf{PDB 1EMA} presenta un barril de láminas beta alrededor del cromóforo. Su representación 3D interactiva en el notebook permite inspeccionar la disposición de la cadena. Una mutación que perturbe el barril podría alterar el plegamiento o la fluorescencia, pero eso exige estudiar la sustitución concreta \cite{pdb}.
+
+\section*{6. Del ADN a la proteína: insulina humana}
+La secuencia pública elegida es \textbf{NCBI RefSeq NM\_000207.3}. Se extrae de su registro GenBank una \textbf{CDS de 333 nucleótidos}, que también se guarda como FASTA. Es una región codificante de un transcrito procesado usada como modelo de ADN: no representa el locus genómico completo con sus intrones.
+
+El pipeline del notebook (i) calcula la hebra complementaria y muestra las dos moléculas hijas, indicando qué hebra es antigua o nueva; (ii) transcribe el ADN codificante a ARNm 5' $\rightarrow$ 3'; y (iii) traduce hasta la parada final. Se muestran fragmentos de 45 bases para hacer legible la salida, pero se \textbf{procesa toda la secuencia}. El producto tiene \textbf{110 aminoácidos}: es \textbf{preproinsulina}, anterior al procesamiento que origina la insulina madura. La cadena empieza por \texttt{MALWMRLLPLLALLALW}; el codón de parada no añade aminoácido \cite{ncbiINS}.
+
+Un error de replicación fijado en el ADN puede propagarse a células hijas y afectar a futuros ARN y proteínas; un error aislado de transcripción o traducción afecta a moléculas concretas sin cambiar el ADN. No toda mutación produce una proteína distinta ni altera necesariamente su función.
+
+\section*{Reproducibilidad y fuentes}
+El código completo, las secuencias de ejemplo y los resultados están en \texttt{ejercicios-01.ipynb} y en el \texttt{README.md} del repositorio. Se ejecuta con Python 3, Biopython, requests, py3Dmol y Jupyter. Las consultas a Ensembl y NCBI requieren conexión y pueden devolver anotaciones más recientes; la estructura PDB se adjunta al proyecto.
+
+\begin{thebibliography}{9}\small
+\bibitem{alberts} Alberts, B. y cols. \emph{Molecular Biology of the Cell}. Garland Science, 2014.
+\bibitem{ensembl} Ensembl. \emph{FGFR2 humano}, ENSG00000066468. \url{https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000066468}.
+\bibitem{ncbiFGFR2} NCBI Gene. \emph{FGFR2}, gen 2263; RefSeq NM\_022970 y NM\_000141. \url{https://www.ncbi.nlm.nih.gov/gene/2263}.
+\bibitem{pdb} RCSB Protein Data Bank. \emph{Green fluorescent protein, 1EMA}. \url{https://www.rcsb.org/structure/1EMA}.
+\bibitem{ncbiINS} NCBI Nucleotide. \emph{Human insulin mRNA}, NM\_000207.3. \url{https://www.ncbi.nlm.nih.gov/nuccore/NM_000207.3}.
+\end{thebibliography}
+\end{document}

@@ -1,0 +1,4 @@
+biopython
+requests
+py3Dmol
+jupyter
