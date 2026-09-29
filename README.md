@@ -103,4 +103,3 @@ Ejecuta las celdas en orden. Las consultas de FGFR2 a Ensembl y de insulina a NC
 - NCBI Gene, [FGFR2](https://www.ncbi.nlm.nih.gov/gene/2263); variantes [IIIb, `NM_022970`](https://www.ncbi.nlm.nih.gov/nuccore/NM_022970) y [IIIc, `NM_000141`](https://www.ncbi.nlm.nih.gov/nuccore/NM_000141).
 - RCSB PDB, [estructura `1EMA`](https://www.rcsb.org/structure/1EMA).
 
-**Presentación oral:** preparar apoyo visual con una estructura, un esquema del proceso y la reflexión crítica. Añadir la URL real del repositorio al compartir la entrega; no se proporciona una URL en los materiales recibidos.
