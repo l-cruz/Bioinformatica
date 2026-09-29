@@ -3,7 +3,7 @@
 **Bioinformática · Grado en Ciencia e Ingeniería de Datos · ULPGC**  
 **Autoras:** Lucía Xufang Cruz Toste y Carlota Ayala Pérez
 
-Esta práctica recorre la replicación, la transcripción, la traducción, el *splicing* alternativo y la relación entre secuencia y estructura proteica. Las respuestas y el código ejecutable de los seis ejercicios están en [`ejercicios-01.ipynb`](ejercicios-01.ipynb). El informe de entrega está en [`Informe_Del_ADN_a_la_Proteina.pdf`](Informe_Del_ADN_a_la_Proteina.pdf) y su fuente editable en [LaTeX](Informe_Del_ADN_a_la_Proteina.tex).
+Esta práctica recorre la replicación, la transcripción, la traducción, el *splicing* alternativo y la relación entre secuencia y estructura proteica. Las respuestas y el código ejecutable de los seis ejercicios están en [`ejercicios-01.ipynb`](ejercicios-01.ipynb). El informe de entrega está en [`Informe_Del_ADN_a_la_Proteina.pdf`](Informe_Del_ADN_a_la_Proteina.pdf).
 
 ## Ejercicio 1. Replicación del ADN
 
