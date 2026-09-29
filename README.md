@@ -95,11 +95,4 @@ jupyter notebook ejercicios-01.ipynb
 
 Ejecuta las celdas en orden. Las consultas de FGFR2 a Ensembl y de insulina a NCBI requieren conexión; las anotaciones pueden cambiar. El notebook escribe `ejercicio2_real.fasta` en el directorio de ejecución, y la descarga PDB puede volver a generar `pdb1ema.ent`. La visualización 3D se aprecia mejor en un entorno Jupyter con soporte HTML.
 
-## Fuentes
-
-- Alberts, B. y colaboradores. *Molecular Biology of the Cell*. Garland Science, 2014.
-- Ensembl, [FGFR2 humano](https://www.ensembl.org/Homo_sapiens/Gene/Summary?g=ENSG00000066468) y [servicio REST](https://rest.ensembl.org/).
-- NCBI Nucleotide, [RefSeq `NM_000207.3`](https://www.ncbi.nlm.nih.gov/nuccore/NM_000207.3).
-- NCBI Gene, [FGFR2](https://www.ncbi.nlm.nih.gov/gene/2263); variantes [IIIb, `NM_022970`](https://www.ncbi.nlm.nih.gov/nuccore/NM_022970) y [IIIc, `NM_000141`](https://www.ncbi.nlm.nih.gov/nuccore/NM_000141).
-- RCSB PDB, [estructura `1EMA`](https://www.rcsb.org/structure/1EMA).
 
